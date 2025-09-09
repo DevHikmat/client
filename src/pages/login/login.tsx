@@ -1,16 +1,23 @@
 import { useState } from "react";
 import { User, Lock, Eye, EyeOff, LogIn } from "lucide-react";
 import "./Login.css";
+import { useLoginMutation } from "../../hooks/useLoginMutation";
 
-const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+const LoginPage = () => {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const { mutateAsync, isPending } = useLoginMutation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login data:", { username, password });
-    // TODO: Auth API qo'shing
+    try {
+      const data = await mutateAsync({ username, password });
+      console.log(data);
+    } catch (error) {
+      // @ts-ignore
+      alert(error?.response?.data?.message);
+    }
   };
 
   return (
@@ -27,6 +34,7 @@ const Login = () => {
             <input
               type="text"
               id="username"
+              autoComplete="off"
               placeholder="Enter your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -43,6 +51,7 @@ const Login = () => {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
+              autoComplete="off"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -68,4 +77,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

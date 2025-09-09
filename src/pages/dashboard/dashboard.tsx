@@ -25,7 +25,7 @@ const menuItems = [
   { name: "Settings", icon: Settings },
 ];
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const [active, setActive] = useState("Dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -81,4 +81,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

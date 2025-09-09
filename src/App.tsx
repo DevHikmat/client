@@ -1,12 +1,28 @@
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Dashboard from "./pages/dashboard/dashboard";
+import DashboardPage from "./pages/dashboard/dashboard";
 import LoginPage from "./pages/login/login";
+import ProtectedRoute from "./router/ProtectedRoute";
 
 const App = () => {
   return (
     <div>
-      {/* <LoginPage /> */}
-      <Dashboard />
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Agar foydalanuvchi noto‘g‘ri path kiritgan bo‘lsa */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
     </div>
   );
 };
