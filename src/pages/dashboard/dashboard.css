@@ -110,7 +110,7 @@
 /* Main content */
 .main-content {
   flex: 1;
-  padding: 2rem;
+  padding: 4.5rem 2rem 2rem;
   background: #f8fafc;
   border-top-left-radius: 2rem;
   border-bottom-left-radius: 2rem;

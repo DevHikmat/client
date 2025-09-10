@@ -2,8 +2,10 @@ import { useState } from "react";
 import { User, Lock, Eye, EyeOff, LogIn } from "lucide-react";
 import "./Login.css";
 import { useLoginMutation } from "../../hooks/useLoginMutation";
+import { useMessage } from "../../hooks/useMessage";
 
 const LoginPage = () => {
+  const { showMessage, destroyMessage } = useMessage();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -11,12 +13,17 @@ const LoginPage = () => {
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
+    const key = 'checking';
+    showMessage("loading", "Loading...", {key});
     try {
       const data = await mutateAsync({ username, password });
       console.log(data);
+      destroyMessage(key);
+      showMessage("success", `Login successfully`);
     } catch (error) {
+      destroyMessage(key);
       // @ts-ignore
-      alert(error?.response?.data?.message);
+      showMessage("error", error?.response?.data?.message);
     }
   };
 
