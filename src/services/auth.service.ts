@@ -1,4 +1,4 @@
-import api from "../lib/api";
+import api from "./instance";
 
 export const login = async (username: string, password: string) => {
   const res = await api.post("/auth/login", { username, password });
@@ -12,3 +12,6 @@ export const logout = () => {
   localStorage.removeItem("accessToken");
   window.location.href = "/login";
 };
+
+
+

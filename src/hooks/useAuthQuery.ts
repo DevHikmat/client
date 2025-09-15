@@ -1,6 +1,6 @@
 // src/hooks/useAuthQuery.ts
 import { useQuery } from "@tanstack/react-query";
-import api from "../lib/api"; // axios instance
+import api from "../services/instance"; // axios instance
 
 export const useAuthQuery = () => {
   return useQuery({
@@ -17,6 +17,6 @@ export const useAuthQuery = () => {
         return null;
       }
     },
-    staleTime: 1000 * 60 * 5, // 5 daqiqa cache
+    staleTime: 1000 * 60 * 5, 
   });
 };

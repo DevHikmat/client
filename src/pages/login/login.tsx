@@ -2,10 +2,10 @@ import { useState } from "react";
 import { User, Lock, Eye, EyeOff, LogIn } from "lucide-react";
 import "./Login.css";
 import { useLoginMutation } from "../../hooks/useLoginMutation";
-import { useMessage } from "../../hooks/useMessage";
+import { useGlobalMessage } from "../../context/MessageContext";
 
 const LoginPage = () => {
-  const { showMessage, destroyMessage } = useMessage();
+  const { showMessage } = useGlobalMessage();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -13,15 +13,10 @@ const LoginPage = () => {
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    const key = 'checking';
-    showMessage("loading", "Loading...", {key});
     try {
-      const data = await mutateAsync({ username, password });
-      console.log(data);
-      destroyMessage(key);
+      await mutateAsync({ username, password });
       showMessage("success", `Login successfully`);
     } catch (error) {
-      destroyMessage(key);
       // @ts-ignore
       showMessage("error", error?.response?.data?.message);
     }
@@ -75,7 +70,7 @@ const LoginPage = () => {
         </div>
 
         {/* Submit */}
-        <button type="submit" className="login-btn">
+        <button disabled={isPending} type="submit" className="login-btn">
           <LogIn size={20} className="btn-icon" />
           Login
         </button>

@@ -5,7 +5,7 @@ export const useLoginMutation = () => {
   return useMutation({
     mutationFn: ({ username, password }: { username: string; password: string }) => login(username, password),
     onSuccess: () => {
-      window.location.href = "/dashboard";
+      window.location.href = "/";
     },
   });
 };

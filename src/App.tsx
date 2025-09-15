@@ -1,20 +1,28 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 import DashboardPage from "./pages/dashboard/dashboard";
 import LoginPage from "./pages/login/login";
 import ProtectedRoute from "./router/ProtectedRoute";
-import { useMessage } from "./hooks/useMessage";
+import { useAuthQuery } from "./hooks/useAuthQuery";
 
 const App = () => {
-  const { contextHolder } = useMessage();
+  const { isPending, isError } = useAuthQuery();
+  const navigate = useNavigate();
+
+
+  if(isPending) return <h2>Loading...</h2>
+  if(isError) return navigate("/login");
+
   return (
     <div>
-      {contextHolder}
-      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route
-            path="/dashboard"
+            path="/*"
             element={
               <ProtectedRoute>
                 <DashboardPage />
@@ -23,9 +31,8 @@ const App = () => {
           />
 
           {/* Agar foydalanuvchi noto‘g‘ri path kiritgan bo‘lsa */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
         </Routes>
-      </BrowserRouter>
     </div>
   );
 };

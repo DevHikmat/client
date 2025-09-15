@@ -13,19 +13,22 @@ import {
   X,
 } from "lucide-react";
 import "./Dashboard.css";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import BranchesPage from "../branches/branches";
 
 const menuItems = [
-  { name: "Dashboard", icon: LayoutDashboard },
-  { name: "Statistics", icon: BarChart3 },
-  { name: "Users", icon: Users },
-  { name: "Branches", icon: GitBranch },
-  { name: "Products", icon: Package },
-  { name: "Histories", icon: History },
-  { name: "Clients", icon: UserCircle2 },
-  { name: "Settings", icon: Settings },
+  { name: "asosiy", icon: LayoutDashboard },
+  { name: "statistika", icon: BarChart3 },
+  { name: "foydalanuvchilar", icon: Users },
+  { name: "filiallar", icon: GitBranch },
+  { name: "mahsulotlar", icon: Package },
+  { name: "tarix", icon: History },
+  { name: "mijozlar", icon: UserCircle2 },
+  { name: "sozlamalar", icon: Settings },
 ];
 
 const DashboardPage = () => {
+  const navigate = useNavigate();
   const [active, setActive] = useState("Dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -52,6 +55,7 @@ const DashboardPage = () => {
               className={`menu-item ${active === item.name ? "active" : ""}`}
               onClick={() => {
                 setActive(item.name);
+                navigate(`/${item.name}`);
                 setSidebarOpen(false); // mobil holatda sidebar yopiladi
               }}
             >
@@ -70,11 +74,10 @@ const DashboardPage = () => {
 
       {/* Main Content */}
       <main className="main-content">
-        <h1 className="page-title">{active}</h1>
         <div className="page-placeholder">
-          <p>
-            This is the <strong>{active}</strong> page content.
-          </p>
+          <Routes>
+            <Route path="filiallar" element={<BranchesPage />} />
+          </Routes>
         </div>
       </main>
     </div>
