@@ -1,7 +1,7 @@
 export interface BranchType {
   id: number;
   name: string;
-  user_id: number | string;
+  user_id: number;
   createdAt: Date;
   updatedAt: Date;
 }
