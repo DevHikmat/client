@@ -19,6 +19,7 @@ import UsersPage from "../users/users";
 import ProductsPage from "../products/products";
 import ClientsPage from "../clients/clients";
 import StatisticsPage from "../statistics/statistics";
+import { logout } from "../../services/auth.service";
 
 const menuItems = [
   { name: "asosiy", icon: LayoutDashboard },
@@ -35,6 +36,10 @@ const DashboardPage = () => {
   const navigate = useNavigate();
   const [active, setActive] = useState("Dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+  }
 
   return (
     <div className="dashboard-container">
@@ -69,7 +74,7 @@ const DashboardPage = () => {
           ))}
         </nav>
         <div className="sidebar-footer">
-          <button className="menu-item logout-btn">
+          <button className="menu-item logout-btn" onClick={handleLogout}>
             <LogOut size={20} />
             <span>Logout</span>
           </button>
