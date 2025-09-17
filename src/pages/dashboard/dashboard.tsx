@@ -15,6 +15,10 @@ import {
 import "./Dashboard.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import BranchesPage from "../branches/branches";
+import UsersPage from "../users/users";
+import ProductsPage from "../products/products";
+import ClientsPage from "../clients/clients";
+import StatisticsPage from "../statistics/statistics";
 
 const menuItems = [
   { name: "asosiy", icon: LayoutDashboard },
@@ -76,7 +80,11 @@ const DashboardPage = () => {
       <main className="main-content">
         <div className="page-placeholder">
           <Routes>
+            <Route path="statistika" element={<StatisticsPage />} />
             <Route path="filiallar" element={<BranchesPage />} />
+            <Route path="foydalanuvchilar" element={<UsersPage />} />
+            <Route path="mahsulotlar" element={<ProductsPage />} />
+            <Route path="mijozlar" element={<ClientsPage />} />
           </Routes>
         </div>
       </main>
