@@ -8,6 +8,7 @@ import DashboardPage from "./pages/dashboard/dashboard";
 import LoginPage from "./pages/login/login";
 import ProtectedRoute from "./router/ProtectedRoute";
 import { useAuthQuery } from "./hooks/useAuthQuery";
+import {AppLayout} from "./layout/AppLayout"
 
 const App = () => {
   const { isPending, isError } = useAuthQuery();
@@ -19,7 +20,8 @@ const App = () => {
     <div>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route
+        <Route element={<AppLayout />}>
+          <Route
           path="/*"
           element={
             <ProtectedRoute>
@@ -27,6 +29,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        </Route>
       </Routes>
     </div>
   );
